@@ -1,0 +1,30 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Lato:wght@400;700&family=Poppins:wght@400;500;600&family=Roboto:wght@400;500;700;900&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  list-style: none;
+  text-decoration: none;
+}
+body{
+  background-color: #323232;
+  background-color: #0f1a1a;
+  background-color: #282828;
+  background-color: #040c18;
+  color: white;
+ 
+}
+html {
+  left: 0%;
+  position: relative;
+  overflow-x: hidden;
+  transition: all .2s ease;
+}
+.swiper-horizontal{
+  overflow: visible;
+}
+a{
+  color:white;
+}
