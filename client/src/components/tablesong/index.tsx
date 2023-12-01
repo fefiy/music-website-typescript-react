@@ -110,9 +110,9 @@ const TableSong = ({ songdata }: tableProp) => {
             <StyledCell>{song.album.name}</StyledCell>
             <StyledCell>{song.artist[0].name}</StyledCell>
             {user && (
-              <StyledCellhov onClick={() => handleSongLike(song._id)}>
+              <StyledCellhov >
                 <HovCotainer>
-                  <div>
+                  <div onClick={() => handleSongLike(song._id)}>
                     <Heart size={20} isFav={user.favsong.includes(song._id)} />
                   </div>
                   {user?.role === "admin" && (

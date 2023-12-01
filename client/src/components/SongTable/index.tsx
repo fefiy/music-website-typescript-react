@@ -12,6 +12,7 @@ import { ref, deleteObject } from "firebase/storage";
 import { useDispatch } from "react-redux";
 import { storage } from "../../config/firebase.config";
 import { deleteMusic, reset } from "../../features/music/musicSlice";
+import { favouriteSong } from "../../features/user/userSlice";
 const PlayPauseContainer = styled.div`
   position: absolute;
   opacity: 0;
@@ -131,7 +132,7 @@ const SongTable = ({
   handlePlayClick,
 }: songProp) => {
   const { user } = useSelector((state: RootState) => state.user);
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
   const handleDelete = (song: song) => {
     Swal.fire({
       title: "Are you sure?",
@@ -153,7 +154,7 @@ const SongTable = ({
 
           // Delete from MongoDB using Redux
           dispatch(deleteMusic(song._id));
-          dispatch(reset())
+          dispatch(reset());
           Swal.fire({
             title: "Deleted!",
             text: "Your file has been deleted.",
@@ -171,6 +172,10 @@ const SongTable = ({
     });
   };
 
+  const handleSongLike = (songId: string) => {
+    const userId = user?._id;
+    dispatch(favouriteSong({ userId, songId }));
+  };
   return (
     <Container isActive={activeSong?.title === song?.title}>
       <ContainerLeft>
@@ -196,15 +201,15 @@ const SongTable = ({
         </AlbumName>
         <HeartContainer>
           <HovCotainer>
-            <div>
-              <Heart size={20} isFav={true} />
+            <div onClick={() => handleSongLike(song._id)}>
+              <Heart size={20} isFav={user.favsong.includes(song._id)} />
             </div>
             {user?.role === "admin" && (
               <>
                 <Link to={`/updatesong/${song._id}`}>
                   <GoPencil color={"white"} size={20} />
                 </Link>
-                <div onClick={()=> handleDelete(song)}>
+                <div onClick={() => handleDelete(song)}>
                   <AiOutlineDelete size={20} />
                 </div>
               </>
