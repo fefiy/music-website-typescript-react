@@ -12,7 +12,6 @@ interface IInitialState {
   albums: IAlbum[];
   isLoading: boolean;
   isAlbumAddSuccefully:boolean;
-
   err: null | string;
 }
 

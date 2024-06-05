@@ -25,14 +25,15 @@ const ModalWrapper = styled(motion.div)<{ isOpen: boolean }>`
 `;
 
 const ModalContent = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  color: black;
-  border-radius: 8px;
-  width: 300px;
-  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
-  background: white;
+display:flex;
+flex-direction:column;
+padding: 20px;
+border-radius: 8px;
+width: 300px;
+box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+background: #031B34;
+color: #042c54
+ border-radius: 8px;
 
 `;
 

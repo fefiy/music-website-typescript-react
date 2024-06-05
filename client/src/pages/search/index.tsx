@@ -1,4 +1,4 @@
-import  { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // Import Swiper styles
 import "swiper/css";
@@ -18,7 +18,8 @@ import Artist from "../SearchTerm/Artist";
 import Song from "../SearchTerm/Song";
 import Album from "../SearchTerm/Album";
 import Genere from "../SearchTerm/Genere";
-import { musicGenres} from "../../data";
+import { musicGenres } from "../../data";
+import ClipLoader from "react-spinners/ClipLoader";
 interface searchProp {
   serchFilter: string;
 }
@@ -28,16 +29,24 @@ const Search = ({ serchFilter }: searchProp) => {
   const [activeFilter, setActiveFilter] = useState<string>("All");
   // const [serchFilter, setserchFilter] = useState<string>("");
   const searchRef = useRef<HTMLInputElement | null>(null);
-  const { songs , isMusicDelSuccesfuly } = useSelector((state: RootState) => state.songs);
-  const { albums } = useSelector((state: RootState) => state.album);
-  const { artists } = useSelector((state: RootState) => state.artist);
+  const {
+    songs,
+    isMusicDelSuccesfuly,
+    isLoading: isLoadingSong,
+  } = useSelector((state: RootState) => state.songs);
+  const { albums, isLoading } = useSelector((state: RootState) => state.album);
+  const { artists, isLoading: isLoadingArtist } = useSelector(
+    (state: RootState) => state.artist
+  );
   const [filterSong, setFilterSong] = useState<song[] | null>(null);
   const [filterAlbums, setFilterAlbums] = useState<IAlbum[] | null>(null);
   const [filterArtists, setFilterArtists] = useState<IArtist[] | null>(null);
   const [filterGenres, setFilterGeners] = useState<string[] | null>(null);
-  const {activeSong, isPlaying, } = useSelector((state:RootState) => state.player)
+  const { activeSong, isPlaying } = useSelector(
+    (state: RootState) => state.player
+  );
   const navigate = useNavigate();
-  console.log("activeSong from idex search "  , activeSong, isPlaying)
+  console.log("activeSong from idex search ", activeSong, isPlaying);
   useEffect(() => {
     console.log("UseEffect callded inside Searh Term Componentes");
     dispatch(getMusic());
@@ -81,6 +90,30 @@ const Search = ({ serchFilter }: searchProp) => {
     setActiveFilter(item);
   };
   console.log("filter songs", filterSong);
+
+  if (isLoading || isLoadingArtist || isLoadingSong) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection:"column",
+          minHeight: "70vh",
+          justifyItems: "center",
+          alignItems: "center",
+          justifyContent:"center",
+          gap:4,
+        }}>
+        <ClipLoader
+          color={"#fff"}
+          size={150}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+        <p style={{fontSize:"34px", fontWeight:"bold"}}>I am on free render that why it take a lot to lading</p>
+      </div>
+    );
+  }
+
   return (
     <Container>
       {serchFilter === "" ? (
@@ -128,7 +161,6 @@ const Container = styled.div`
   width: 98%;
   margin: 2px auto;
   background: linear-gradient(to bottom, #031b34, #040c18);
-
 `;
 const SliderContainer = styled.div`
   width: 90%;
@@ -156,6 +188,7 @@ const FilterButtons = styled.div`
     margin: 5px;
   }
 `;
+
 const FiterItems = styled.div<{ active: boolean }>`
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
@@ -184,14 +217,14 @@ const FiterItems = styled.div<{ active: boolean }>`
     padding: 0.3rem 0.5rem;
     border-radius: 0.3rem;
   }
-  @media(max-width:453px) {
+  @media (max-width: 453px) {
     margin: 5px;
     font-size: 17px;
     font-weight: 600;
     padding: 0.3rem 0.5rem;
     border-radius: 0.3rem;
   }
-  @media(max-width:453px) {
+  @media (max-width: 453px) {
     margin: 3px;
     font-size: 14px;
     font-weight: 600;

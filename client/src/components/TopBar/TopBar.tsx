@@ -19,7 +19,7 @@ const Container = styled.div`
   background-color: #031b34;
   margin-left: 1%;
   display: flex;
-  border-radius:10px;
+  border-radius: 10px;
   align-items: center;
   justify-content: space-between;
   z-index: 300;
@@ -32,9 +32,10 @@ const ButtonContainer = styled.div`
   gap: 20px;
 `;
 const ButtonSignin = styled.button`
-  padding: 10px;
+  background: white;
+  padding: 8px 15px;
   border: none;
-  border-radius: 15px;
+  border-radius: 30px;
   font-size: 16px;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
 `;
@@ -43,16 +44,17 @@ const SearchBarContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
-  @media(max-width:760px){
-    margin-left:60px;
-    width:100%;
+  @media (max-width: 760px) {
+    margin-left: 60px;
+    width: 100%;
   }
 `;
 const ButtonSignup = styled.button`
-  padding: 10px;
+  padding: 8px 15px;
   border: none;
-  border-radius: 15px;
+  border-radius: 30px;
   font-size: 16px;
+  background: white;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
 `;
 interface topBarprops {
@@ -74,7 +76,7 @@ const TopBar = ({ searchTerm, setSearchTerm }: topBarprops) => {
     setisSininmodalOpen(false);
   };
 
-  return ( 
+  return (
     <>
       <Container>
         <SearchBarContainer>
@@ -87,7 +89,9 @@ const TopBar = ({ searchTerm, setSearchTerm }: topBarprops) => {
 
         {user !== null && isAuthenticated ? (
           <>
-            <a data-tooltip-id="my-tooltip" data-tooltip-content={`${user.username}`}>
+            <a
+              data-tooltip-id="my-tooltip"
+              data-tooltip-content={`${user.username}`}>
               <MenuSimple />
             </a>
             <Tooltip id="my-tooltip" />

@@ -33,6 +33,7 @@ const musicSlice = createSlice({
     },
     getMusicErr: (state, action) => {
       state.err = action.payload.data;
+      state.isLoading = false;
     },
     deleteMusic: (state, _action) => {
       state.isMusicDelSuccesfuly = false;

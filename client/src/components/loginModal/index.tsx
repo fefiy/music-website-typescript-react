@@ -91,8 +91,8 @@ const LoginButton = styled.button`
 `;
 
 const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
-  const [username, setUsername] = useState<String>("");
-  const [password, setPassword] = useState<String>("");
+  const [username, setUsername] = useState<String>("fozi");
+  const [password, setPassword] = useState<String>("fefu123");
   const dispatch = useDispatch();
   const {  loginSuccess } = useSelector(
     (state: RootState) => state.user
@@ -104,7 +104,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
       onClose();
       setUsername("");
       setPassword("");
-      toast.success("Registered successfuly please sign in");
+      toast.success("successfuly sign in");
       dispatch(reset());
     }
   }, [loginSuccess]);
@@ -132,7 +132,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
               <InputLabel>Username:</InputLabel>
               <Input
                 type="text"
-                // value={username}
+                defaultValue={"fozi"}
                 onChange={(e) => setUsername(e.target.value)}
               />
             </InputContainer>
@@ -140,7 +140,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
               <InputLabel>Password:</InputLabel>
               <Input
                 type="password"
-                // value={password}
+                defaultValue={"fefu123"}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </InputContainer>
