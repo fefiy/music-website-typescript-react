@@ -202,7 +202,7 @@ const SongTable = ({
         <HeartContainer>
           <HovCotainer>
             <div onClick={() => handleSongLike(song._id)}>
-              <Heart size={20} isFav={user.favsong.includes(song._id)} />
+              <Heart size={20} isFav={user && user.favsong.includes(song._id)} />
             </div>
             {user?.role === "admin" && (
               <>
