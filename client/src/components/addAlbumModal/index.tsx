@@ -42,6 +42,7 @@ const ModalContent = styled(motion.div)`
   width: 300px;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
   color: #042c54
+  background: #031B34;
 border-radius: 8px;
 `;
 

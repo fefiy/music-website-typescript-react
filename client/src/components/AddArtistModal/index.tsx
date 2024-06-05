@@ -17,8 +17,6 @@ interface AddArtistModalProps {
   onClose: () => void;
 }
 
-
-
 const ModalWrapper = styled(motion.div)<{ isOpen: boolean }>`
   display: flex;
   position: fixed;
@@ -38,7 +36,7 @@ border-radius: 8px;
   display: flex;
   flex-direction: column;
   padding: 20px;
-
+  background: #031B34;
   border-radius: 8px;
   width: 300px;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
@@ -76,18 +74,18 @@ const Input = styled.input`
 `;
 
 const TextArea = styled.textarea`
-padding: 10px;
-width: 100%;
-border: 1px solid #ccc;
-border-radius: 4px;
-&:hover {
-  outline: none;
-}
-&:focus {
-  outline: none;
-  border-color: #888;
-}
-`
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  &:hover {
+    outline: none;
+  }
+  &:focus {
+    outline: none;
+    border-color: #888;
+  }
+`;
 const CloseButton = styled.button`
   align-self: flex-end;
   background: none;
@@ -150,7 +148,6 @@ const FileDeleteButton = styled.button`
   }
 `;
 
-
 const AddArtistModal: React.FC<AddArtistModalProps> = ({ isOpen, onClose }) => {
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -158,17 +155,17 @@ const AddArtistModal: React.FC<AddArtistModalProps> = ({ isOpen, onClose }) => {
   const [isImgLoading, setIsImgLoading] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
   const dispatch = useDispatch();
-  const { isLoading , isArtistAddSuccesfuly} = useSelector(
+  const { isLoading, isArtistAddSuccesfuly } = useSelector(
     (state: RootState) => state.artist
   );
 
   useEffect(() => {
-    if (isArtistAddSuccesfuly){
+    if (isArtistAddSuccesfuly) {
       onClose();
       setName("");
       setDescription("");
-      setImageURL("")
-      setProgress(0)
+      setImageURL("");
+      setProgress(0);
       toast.success("Artist added successfully");
     }
   }, [isLoading]);
@@ -184,16 +181,14 @@ const AddArtistModal: React.FC<AddArtistModalProps> = ({ isOpen, onClose }) => {
   };
 
   const handleAddArtist = async () => {
-    if(!imageURL){
-     toast.error("image url dosn't found")
-    }else{
-      dispatch(addArtistStart({name, imageURL, description}))
-
+    if (!imageURL) {
+      toast.error("image url dosn't found");
+    } else {
+      dispatch(addArtistStart({ name, imageURL, description }));
     }
-   
   };
 
-  console.log("inputs", imageURL, description, name)
+  console.log("inputs", imageURL, description, name);
   return (
     <AnimatePresence>
       {isOpen && (
@@ -224,10 +219,7 @@ const AddArtistModal: React.FC<AddArtistModalProps> = ({ isOpen, onClose }) => {
               <TextArea
                 // type="text"
                 value={description}
-                onChange={(e) =>
-                  setDescription(e.target.value)
-                }
-              ></TextArea>
+                onChange={(e) => setDescription(e.target.value)}></TextArea>
               {/* {err && <ErrorMessage>{err}</ErrorMessage>} */}
             </InputContainer>
             <FileLoaderContainer>
@@ -255,16 +247,15 @@ const AddArtistModal: React.FC<AddArtistModalProps> = ({ isOpen, onClose }) => {
                 </>
               )}
             </FileLoaderContainer>
-              <>
-                {isImgLoading ? (
-                  <ButonLoading />
-                ) : (
-                  <AddArtistButton onClick={handleAddArtist}>
-                    Add Artist
-                  </AddArtistButton>
-                )}
-              </>
-           
+            <>
+              {isImgLoading ? (
+                <ButonLoading />
+              ) : (
+                <AddArtistButton onClick={handleAddArtist}>
+                  Add Artist
+                </AddArtistButton>
+              )}
+            </>
           </ModalContent>
         </ModalWrapper>
       )}
