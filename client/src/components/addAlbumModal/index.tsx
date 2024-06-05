@@ -17,8 +17,6 @@ interface AddAlbumModalProps {
   onClose: () => void;
 }
 
-
-
 const ModalWrapper = styled(motion.div)<{ isOpen: boolean }>`
   display: flex;
   position: fixed;
@@ -33,7 +31,6 @@ const ModalWrapper = styled(motion.div)<{ isOpen: boolean }>`
 `;
 
 const ModalContent = styled(motion.div)`
- 
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -41,12 +38,13 @@ const ModalContent = styled(motion.div)`
   border-radius: 8px;
   width: 300px;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
-  color: #042c54
+  color: #042c54;
   background: #031B34;
-border-radius: 8px;
+  border-radius: 8px;
 `;
 
 const Title = styled.div`
+ color:white;
   text-align: center;
   text-transform: capitalize;
   font-size: 18px;
@@ -61,6 +59,7 @@ const InputContainer = styled.div`
 const InputLabel = styled.label`
   font-weight: bold;
   margin-bottom: 8px;
+  color:white;
 `;
 
 const Input = styled.input`
@@ -78,18 +77,18 @@ const Input = styled.input`
 `;
 
 const TextArea = styled.textarea`
-padding: 10px;
-width: 100%;
-border: 1px solid #ccc;
-border-radius: 4px;
-&:hover {
-  outline: none;
-}
-&:focus {
-  outline: none;
-  border-color: #888;
-}
-`
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  &:hover {
+    outline: none;
+  }
+  &:focus {
+    outline: none;
+    border-color: #888;
+  }
+`;
 const CloseButton = styled.button`
   align-self: flex-end;
   background: none;
@@ -152,8 +151,6 @@ const FileDeleteButton = styled.button`
   }
 `;
 
-
-
 const AddAlbumModal: React.FC<AddAlbumModalProps> = ({ isOpen, onClose }) => {
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -161,16 +158,16 @@ const AddAlbumModal: React.FC<AddAlbumModalProps> = ({ isOpen, onClose }) => {
   const [isImgLoading, setIsImgLoading] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
   const dispatch = useDispatch();
-  const { isLoading, isAlbumAddSuccefully} = useSelector(
+  const { isLoading, isAlbumAddSuccefully } = useSelector(
     (state: RootState) => state.album
   );
 
   useEffect(() => {
-    if (isAlbumAddSuccefully){
+    if (isAlbumAddSuccefully) {
       onClose();
       setName("");
       setDescription("");
-      setImageURL("")
+      setImageURL("");
       toast.success("Album added successfully");
     }
   }, [isLoading]);
@@ -186,15 +183,14 @@ const AddAlbumModal: React.FC<AddAlbumModalProps> = ({ isOpen, onClose }) => {
   };
 
   const handleAddAlbum = async () => {
-    if(!imageURL){
-     toast.error("image url dosn't found")
-    }else{
-      dispatch(addalbumStart({name, imageURL, description}))
+    if (!imageURL) {
+      toast.error("image url dosn't found");
+    } else {
+      dispatch(addalbumStart({ name, imageURL, description }));
     }
-   
   };
 
-  console.log("inputs", imageURL, description, name)
+  console.log("inputs", imageURL, description, name);
   return (
     <AnimatePresence>
       {isOpen && (
@@ -225,10 +221,7 @@ const AddAlbumModal: React.FC<AddAlbumModalProps> = ({ isOpen, onClose }) => {
               <TextArea
                 // type="text"
                 value={description}
-                onChange={(e) =>
-                  setDescription(e.target.value)
-                }
-              ></TextArea>
+                onChange={(e) => setDescription(e.target.value)}></TextArea>
               {/* {err && <ErrorMessage>{err}</ErrorMessage>} */}
             </InputContainer>
             <FileLoaderContainer>
@@ -256,16 +249,15 @@ const AddAlbumModal: React.FC<AddAlbumModalProps> = ({ isOpen, onClose }) => {
                 </>
               )}
             </FileLoaderContainer>
-              <>
-                {isImgLoading ? (
-                  <ButonLoading />
-                ) : (
-                  <AddAlbumButton onClick={handleAddAlbum}>
-                    Add Album
-                  </AddAlbumButton>
-                )}
-              </>
-           
+            <>
+              {isImgLoading ? (
+                <ButonLoading />
+              ) : (
+                <AddAlbumButton onClick={handleAddAlbum}>
+                  Add Album
+                </AddAlbumButton>
+              )}
+            </>
           </ModalContent>
         </ModalWrapper>
       )}
